@@ -22,6 +22,6 @@ public class Report {
     public String toString() {
         return "Report{" +
                 "tasks=" + tasks +
-                '}';
+                '}' ;
     }
 }

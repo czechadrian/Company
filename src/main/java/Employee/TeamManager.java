@@ -38,7 +38,7 @@ public class TeamManager extends AbstractEmployee implements Manager {
 
     @Override
     public boolean canHire() {
-        return limitOfWorkers < getWorkers.size();
+        return limitOfWorkers >= getWorkers.size();
     }
 
     @Override

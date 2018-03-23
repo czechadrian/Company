@@ -9,6 +9,7 @@ public interface Employee {
     String getName();
     String getSurname();
     Role getRole();
+
     void assign(Task task);
     Report reportWork();
 
