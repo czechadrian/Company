@@ -1,15 +1,14 @@
-package Employee;
-import java.util.ArrayList;
+package czechadrian.company.employee;
+
 import java.util.Random;
-import java.util.List;
 
 public class PersonGenerator {
 
-    private final String[] names = {"Achacja", "Achacjusz", "Achacy", "Achilles",
+    private final String[] names = {"Zosia","Zdzisia","Paulina","Maciek","Achacja", "Achacjusz", "Achacy", "Achilles",
             "Ada", "Adalbert", "Adalberta", "Adalgunda", "Adalruna", "Alruna"};
 
     private final String[] surnames = {"Gabrowski", "Gadowski", "Gajda", "Galewicz",
-            "Galiński", "Gałczyński", "Gałecki", "Gancarczyk", "Garbowski"};
+            "Galiński", "Gałczyński","Pioro","Onderka","Daniels","Kowalski", "Gałecki", "Gancarczyk", "Garbowski"};
 
     private Random rand = new Random();
 
@@ -20,4 +19,6 @@ public class PersonGenerator {
     public String getSurname() {
         return surnames[rand.nextInt(surnames.length)];
     }
+
+    public final int amount = 0;
 }

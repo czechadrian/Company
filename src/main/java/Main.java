@@ -1,27 +1,74 @@
-import CompanyGenerator.CompanyGenerator;
-import Employee.Developer;
-import Employee.Manager;
-import Task.Task;
-import Employee.TeamManager;
-import Task.Report;
+import czechadrian.company.employee.Employee;
+import czechadrian.company.employee.EmployeeGenerator;
+import czechadrian.company.employee.Manager;
+import czechadrian.company.employee.TeamManager;
+import czechadrian.company.report.Report;
+import czechadrian.company.task.TaskGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String args[]) {
 
-        CompanyGenerator companyGenerator = new CompanyGenerator();
+        Random rand = new Random();
 
-        Manager ceo = companyGenerator.establishCompany(3);
-
-        ceo.assign(new Task("Android app",8));
-        ceo.assign(new Task("coffee",1));
+        int levels = rand.nextInt(4) + 1;
+        int size = rand.nextInt(4) + 1;
 
 
-        System.out.println(ceo.reportWork() + "\n\n");
+        EmployeeGenerator employeeGenerator = new EmployeeGenerator();
+        TaskGenerator taskGenerator = new TaskGenerator();
 
-        System.out.println(ceo.toString());
+        List<Employee> otherEmployeeList = new ArrayList<>();
 
-        System.out.println(ceo.canHire());
+        List<Employee> employeeList = new ArrayList<>();
 
+        employeeList.addAll(employeeGenerator.getDevelopers((int) Math.pow(size, levels)));
+
+        TeamManager ceo = employeeGenerator.getCEO(size);
+
+        if (levels == 1) {
+            for (Employee dev : employeeList) {
+                ceo.hire(dev);
+            }
+        } else {
+            List<Manager> managersList = employeeGenerator.getManagers(size, (int) Math.pow(size, levels - 1));
+
+            int num1 = 0;
+            for (Manager manager : managersList) {
+                for (int i = 0; i < size; i++) {
+                    manager.hire(employeeList.get(num1));
+                    num1++;
+                }
+            }
+
+            for (int i = levels - 1; i > 1; i--) {
+                otherEmployeeList.addAll(managersList);
+                managersList = employeeGenerator.getManagers(size, (int) Math.pow(size, i - 1));
+                int num2 = 0;
+                for (Manager manager : managersList) {
+                    for (int j = 0; j < size; j++) {
+                        manager.hire(otherEmployeeList.get(num2));
+                        num2++;
+                    }
+                }
+                otherEmployeeList.clear();
+            }
+
+            for (Employee employee : managersList) {
+                ceo.hire(employee);
+            }
+        }
+        int numOfTasks = rand.nextInt(40)+10;
+
+        for(int i = 0;i<numOfTasks;i++) {
+            ceo.assign(taskGenerator.addTask());
+        }
+        Report report = ceo.reportWork();
+
+        System.out.println("\n\n"+report.toString());
 
     }
 }

@@ -1,4 +1,4 @@
-package Task;
+package czechadrian.company.task;
 
 public class Task {
 

@@ -1,4 +1,7 @@
-package Employee;
+package czechadrian.company.employee;
+
+import czechadrian.company.report.Report;
+import czechadrian.company.task.Task;
 
 import java.util.List;
 public interface Manager extends Employee {
@@ -8,5 +11,6 @@ public interface Manager extends Employee {
 
     boolean canHire();
 
-   // List<Employee> getWorkers();
+    Employee getWorkerWithLowestWorkload();
+
 }
